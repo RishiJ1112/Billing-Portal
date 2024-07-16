@@ -1,0 +1,188 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #020202;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f6f6f5;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.row label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.row input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+button.remove {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button#add-item {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    /* display: flex; */
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.totals {
+    display: flex;
+    flex-direction: column;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.buttons button {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+
+.buttons button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+}
+
+.buttons button[type="button"] {
+    background-color: #6c757d;
+    color: white;
+}
+
+.buttons button[type="submit"]:hover,
+.buttons button[type="button"]:hover,
+button#add-item:hover,
+button.remove:hover {
+    opacity: 0.8;
+}
+
+@media (min-width: 600px) {
+    .row {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .row label {
+        width: 150px;
+        margin-right: 10px;
+    }
+
+    .row input {
+        flex: 1;
+    }
+
+    .totals .row {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .totals .row label {
+        width: 150px;
+        margin-right: 10px;
+    }
+
+    .totals .row input {
+        flex: 1;
+    }
+}
+
+@media (max-width: 599px) {
+    .container {
+        padding: 10px;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    table, th, td {
+        padding: 5px;
+    }
+
+    th, td {
+        font-size: 14px;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    .buttons button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
