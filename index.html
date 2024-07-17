@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Billing Portal</title>
+    <title>Imagination (INVOICE) Apps Script</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
@@ -12,20 +12,20 @@
         <h1>Billing Portal</h1>
         <form id="invoice-form">
             <div class="row">
-                <label for="customer">Customer</label>
-                <input type="text" id="customer" name="customer" placeholder="Customer Name" required>
+                <label for="customer">XYZ</label>
+                <input type="text" id="customer" name="customer" placeholder="XYZ" required>
             </div>
             <div class="row">
-                <label for="address">Address</label>
-                <input type="text" id="address" name="address" placeholder="Customer Address" required>
+                <label for="address">Document Name</label>
+                <input type="text" id="address" name="address" placeholder="Document Name" required>
             </div>
             <div class="row">
-                <label for="city">City</label>
-                <input type="text" id="city" name="city" placeholder="City" required>
+                <label for="city">Document No.</label>
+                <input type="text" id="city" name="city" placeholder="Document No." required>
             </div>
             <div class="row">
                 <label for="inv_no">Inv. No</label>
-                <input type="text" id="inv_no" name="inv_no" required>
+                <input type="text" id="inv_no" name="inv_no" readonly>
             </div>
             <div class="row">
                 <label for="inv_date">Inv. Date</label>
@@ -40,17 +40,20 @@
                             <th>Qty</th>
                             <th>Rate</th>
                             <th>Amount</th>
-                            <th></th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody id="invoice-items">
                         <tr>
                             <td>1</td>
                             <td><input type="text" name="particular" placeholder="Item Description" required></td>
-                            <td><input type="number" name="qty" min="0" step="1" required></td>
-                            <td><input type="number" name="rate" min="0" step="0.01" required></td>
+                            <td><input type="number" name="qty" min="0" step="0.01" required></td>
+                            <td><input type="number" name="rate" min="0" step="0.1" required></td>
                             <td><input type="number" name="amount" readonly></td>
-                            <td><button type="button" class="remove"><i class="fas fa-trash-alt"></i></button></td>
+                            <td>
+                                <button type="button" class="remove"><i class="fas fa-trash-alt"></i></button>
+                                <button type="button" class="add-attributes"><i class="fas fa-plus"></i></button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
