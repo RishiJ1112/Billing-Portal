@@ -1,6 +1,6 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #020202;
+    background-color: #060606;
     margin: 0;
     padding: 0;
     display: flex;
@@ -11,13 +11,13 @@ body {
 
 .container {
     width: 90%;
-    max-width: 900px;
+    max-width: px;
     margin: 20px;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #fbf6f6;
     border-radius: 10px;
-    background-color: #f6f6f5;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    
 }
 
 h1 {
@@ -31,6 +31,21 @@ form {
     flex-direction: column;
 }
 
+/* .row {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    width: 20%;
+    padding-right: 10px;
+}
+
+input[type="text"], input[type="number"], input[type="date"] {
+    width: 75%;
+    padding: 5px;
+} */
 .row {
     display: flex;
     flex-direction: column;
@@ -43,10 +58,10 @@ form {
 }
 
 .row input {
-    padding: 10px;
+    padding: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    
+    width: 100%;
 }
 
 .table-responsive {
@@ -81,6 +96,18 @@ button.remove {
     padding: 5px 10px;
     cursor: pointer;
     border-radius: 5px;
+    margin: 5px;
+}
+
+button.add-attributes {
+    background-color: #ffc107;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin: 5px;
 }
 
 button#add-item {
@@ -90,7 +117,6 @@ button#add-item {
     padding: 10px;
     cursor: pointer;
     border-radius: 5px;
-    /* display: flex; */
     align-items: center;
     gap: 5px;
     margin-bottom: 20px;
@@ -102,9 +128,11 @@ button#add-item {
 }
 
 .buttons {
-    display: flex;
+    text-align: center;
     justify-content: space-between;
 }
+
+
 
 .buttons button {
     padding: 10px 20px;
@@ -126,9 +154,32 @@ button#add-item {
 .buttons button[type="submit"]:hover,
 .buttons button[type="button"]:hover,
 button#add-item:hover,
-button.remove:hover {
+button.remove:hover,
+button.add-attributes:hover {
     opacity: 0.8;
 }
+
+.sub-form-container {
+    display: none;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.sub-form-container .sub-form {
+    display: flex;
+    flex-direction: row;
+}
+
+.sub-form-container .sub-form .row {
+    flex-direction: column;
+    margin-bottom: 10px;
+    padding:10px;
+}
+
+
 
 @media (min-width: 600px) {
     .row {
@@ -186,3 +237,16 @@ button.remove:hover {
         margin-bottom: 10px;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
