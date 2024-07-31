@@ -3,17 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imagination (INVOICE) Apps Script</title>
+    <title> Bharat Textiles </title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <h1>Billing Portal</h1>
+        <u><h1>Billing Portal</h1></u>
         <form id="invoice-form">
+
+              <div class="row">
+                <label for="inv_no">Inv. No</label>
+                <input type="text" id="inv_no" name="inv_no" placeholder="Invoice Number" readonly>
+            </div>
             <div class="row">
-                <label for="customer">XYZ</label>
-                <input type="text" id="customer" name="customer" placeholder="XYZ" required>
+                <label for="inv_date">Inv. Date</label>
+                <input type="date" id="inv_date" name="inv_date" required>
             </div>
             <div class="row">
                 <label for="address">Document Name</label>
@@ -24,20 +29,16 @@
                 <input type="text" id="city" name="city" placeholder="Document No." required>
             </div>
             <div class="row">
-                <label for="inv_no">Inv. No</label>
-                <input type="text" id="inv_no" name="inv_no" readonly>
-            </div>
-            <div class="row">
-                <label for="inv_date">Inv. Date</label>
-                <input type="date" id="inv_date" name="inv_date" required>
+                <label for="customer">Party Name</label>
+                <input type="text" id="customer" name="customer" placeholder="Party Name" required>
             </div>
             <div class="table-responsive">
                 <table>
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Particular</th>
-                            <th>Qty</th>
+                            <th>Product</th>
+                            <th>Quantity</th>
                             <th>Rate</th>
                             <th>Amount</th>
                             <th>Actions</th>
@@ -46,12 +47,11 @@
                     <tbody id="invoice-items">
                         <tr>
                             <td>1</td>
-                            <td><input type="text" name="particular" placeholder="Item Description" required></td>
-                            <td><input type="number" name="qty" min="0" step="0.01" required></td>
-                            <td><input type="number" name="rate" min="0" step="0.1" required></td>
-                            <td><input type="number" name="amount" readonly></td>
+                            <td><input type="text" name="Product" placeholder="Product" required></td>
+                            <td><input type="number" name="qty" min="0" step="0.01" placeholder="Quantity"required></td>
+                            <td><input type="number" name="rate" min="0" step="0.1" placeholder="Rate" required></td>
+                            <td><input type="number" name="amount" placeholder="Amount" readonly></td>
                             <td>
-                                <button type="button" class="remove"><i class="fas fa-trash-alt"></i></button>
                                 <button type="button" class="add-attributes"><i class="fas fa-plus"></i></button>
                             </td>
                         </tr>
@@ -62,20 +62,20 @@
             <div class="totals">
                 <div class="row">
                     <label for="total">Total</label>
-                    <input type="number" id="total" name="total" readonly>
+                    <input type="number" id="total" name="total" placeholder=" Total Amount" readonly>
                 </div>
                 <div class="row">
                     <label for="gst">GST (18%)</label>
-                    <input type="number" id="gst" name="gst" readonly>
+                    <input type="number" id="gst" name="gst" placeholder="GST" readonly>
                 </div>
                 <div class="row">
                     <label for="net_amt">Net Amt</label>
-                    <input type="number" id="net_amt" name="net_amt" readonly>
+                    <input type="number" id="net_amt" name="net_amt" placeholder="Net Amount" readonly>
                 </div>
             </div>
             <div class="buttons">
                 <button type="submit">Submit</button>
-                <!-- <button type="button" onclick="window.print()">Print</button> -->
+                <button type="button" onclick="submitHistory()">SALES HISTORY</button>
             </div>
         </form>
     </div>
