@@ -9,10 +9,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         row.innerHTML = `
             <td>${rowCount + 1}</td>
-            <td><input type="text" name="particular" placeholder="Item Description" required></td>
-            <td><input type="number" name="qty" min="0" step="1" required></td>
-            <td><input type="number" name="rate" min="0" step="0.01" required></td>
-            <td><input type="number" name="amount" readonly></td>
+            <td><input type="text" name="Product" placeholder="Product" required></td>
+            <td><input type="number" name="qty" min="0" step="1" placeholder="Quantity" required></td>
+            <td><input type="number" name="rate" min="0" step="0.01" placeholder="Rate" required></td>
+            <td><input type="number" name="amount" placeholder="Amount" readonly></td>
             <td>
                 <button type="button" class="remove"><i class="fas fa-trash-alt"></i></button>
                 <button type="button" class="add-attributes"><i class="fas fa-plus"></i></button>
@@ -47,11 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
         updateAmount();
     });
 
-    // form.addEventListener('submit', function (e) {
-    //     e.preventDefault();
-    //     alert('Invoice submitted successfully!');
-    // });
-
+    // To calculate the amount of the table row independently 
     function calculateAmount(qtyInput, rateInput, amountInput) {
         const qty = parseFloat(qtyInput.value);
         const rate = parseFloat(rateInput.value);
@@ -60,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
         updateAmount();
     }
 
+    // To update the amount when the data is inserted
     function updateAmount() {
         const rows = invoiceItems.querySelectorAll('tr:not(.sub-form-container)');
         let total = 0;
@@ -82,6 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('net_amt').value = netAmt.toFixed(2);
     }
 
+    // To adjust the row numbers accordingly  
     function updateRowNumbers() {
         const rows = invoiceItems.querySelectorAll('tr:not(.sub-form-container)');
         rows.forEach((row, index) => {
@@ -89,6 +87,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+
+    // To open the sub-form in the row
     function toggleSubForm(row) {
         let subFormContainer = row.nextElementSibling;
 
@@ -107,8 +107,20 @@ document.addEventListener('DOMContentLoaded', function () {
                             <input type="text" name="attribute2" placeholder="Shade">
                         </div>
                         <div class="row">
-                            <label for="attribute3">Attribute 3</label>
-                            <input type="text" name="attribute3" placeholder="Attribute 3">
+                            <label for="attribute3">Pattern</label>
+                            <input type="text" name="attribute3" placeholder="Pattern">
+                        </div>
+                        <div class="row">
+                            <label for="attribute4">Order No.</label>
+                            <input type="number" name="attribute4" placeholder="Order No.">
+                        </div>
+                        <div class="row">
+                            <label for="attribute5">Qty</label>
+                            <input type="number" name="attribute5" placeholder="Qty">
+                        </div>
+                        <div class="row">
+                            <label for="attribute6">Remarks</label>
+                            <input type="text" name="attribute6" placeholder="Remarks">
                         </div>
                     </div>
                 </td>
@@ -118,11 +130,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         subFormContainer.style.display = subFormContainer.style.display === 'none' || subFormContainer.style.display === '' ? 'table-row' : 'none';
     }
+    
 
     document.querySelectorAll('[name="qty"], [name="rate"]').forEach(input => {
         input.addEventListener('input', updateAmount);
     });
 
+
+    // To remove the rows of the table
     document.querySelectorAll('.remove').forEach(button => {
         button.addEventListener('click', function () {
             const row = button.closest('tr');
