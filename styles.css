@@ -10,11 +10,11 @@ body {
 }
 
 .container {
-    width: 90%;
+    width: 80%;
     max-width: px;
     margin: 20px;
     padding: 20px;
-    border: 1px solid #fbf6f6;
+    border: 5px solid #2f0aa9;
     border-radius: 10px;
     background-color: #fff;
     
@@ -31,21 +31,6 @@ form {
     flex-direction: column;
 }
 
-/* .row {
-    margin-bottom: 15px;
-    display: flex;
-    flex-direction: column;
-}
-
-label {
-    width: 20%;
-    padding-right: 10px;
-}
-
-input[type="text"], input[type="number"], input[type="date"] {
-    width: 75%;
-    padding: 5px;
-} */
 .row {
     display: flex;
     flex-direction: column;
@@ -59,25 +44,26 @@ input[type="text"], input[type="number"], input[type="date"] {
 
 .row input {
     padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 100%;
+    border: 1px solid #050505;
+    border-radius: 3px;
+    width: 85%;
 }
 
 .table-responsive {
     width: 100%;
     overflow-x: auto;
     margin-bottom: 20px;
+    border: 1px solid #050505;
+    border-radius: 3px;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
 }
 
 table, th, td {
-    border: 1px solid #ddd;
+    border: 1px solid #030202;
 }
 
 th, td {
@@ -100,7 +86,7 @@ button.remove {
 }
 
 button.add-attributes {
-    background-color: #ffc107;
+    background-color: #059e14;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -111,7 +97,7 @@ button.add-attributes {
 }
 
 button#add-item {
-    background-color: #28a745;
+    background-color: #284ca7;
     color: white;
     border: none;
     padding: 10px;
@@ -142,7 +128,7 @@ button#add-item {
 }
 
 .buttons button[type="submit"] {
-    background-color: #007bff;
+    background-color: #284ca7;
     color: white;
 }
 
@@ -177,6 +163,18 @@ button.add-attributes:hover {
     flex-direction: column;
     margin-bottom: 10px;
     padding:10px;
+}
+
+button.add-sub-form-row{
+    background-color: #059e14;
+    color: white;
+    border: none;
+    padding: 5px 8px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin: 5px;
+    height: auto;
 }
 
 
