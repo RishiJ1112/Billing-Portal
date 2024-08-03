@@ -96,8 +96,8 @@ document.addEventListener('DOMContentLoaded', function () {
             subFormContainer = document.createElement('tr');
             subFormContainer.classList.add('sub-form-container');
             subFormContainer.innerHTML = `
-                <td colspan="6">
-                    <div class="sub-form">
+                        <div class="sub-form">
+                        <td>
                         <div class="row">
                             <label for="attribute1">Taka ID</label>
                             <input type="text" name="attribute1" placeholder="Taka ID">
@@ -106,6 +106,9 @@ document.addEventListener('DOMContentLoaded', function () {
                             <label for="attribute2">Shade</label>
                             <input type="text" name="attribute2" placeholder="Shade">
                         </div>
+                        </td>
+
+                        <td>
                         <div class="row">
                             <label for="attribute3">Pattern</label>
                             <input type="text" name="attribute3" placeholder="Pattern">
@@ -114,6 +117,9 @@ document.addEventListener('DOMContentLoaded', function () {
                             <label for="attribute4">Order No.</label>
                             <input type="number" name="attribute4" placeholder="Order No.">
                         </div>
+                        </td>
+
+                        <td>
                         <div class="row">
                             <label for="attribute5">Qty</label>
                             <input type="number" name="attribute5" placeholder="Qty">
@@ -122,14 +128,24 @@ document.addEventListener('DOMContentLoaded', function () {
                             <label for="attribute6">Remarks</label>
                             <input type="text" name="attribute6" placeholder="Remarks">
                         </div>
+                        </td>
+
+                        <td>
+                        <button type="button" class="sub-row-add"><i class="fas fa-plus"></i> Add </button> 
+                        </td>
+
+                       <td>
+                       <button type="button" class="remove-sub-row"><i class="fas fa-trash-alt"></i></button>
+                       </td>
                     </div>
-                </td>
+
             `;
             row.after(subFormContainer);
         }
 
         subFormContainer.style.display = subFormContainer.style.display === 'none' || subFormContainer.style.display === '' ? 'table-row' : 'none';
     }
+    
     
 
     document.querySelectorAll('[name="qty"], [name="rate"]').forEach(input => {
