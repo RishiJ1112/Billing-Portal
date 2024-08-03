@@ -141,6 +141,7 @@ button#add-item {
 .buttons button[type="button"]:hover,
 button#add-item:hover,
 button.remove:hover,
+button.sub-row-add:hover,
 button.add-attributes:hover {
     opacity: 0.8;
 }
@@ -150,8 +151,8 @@ button.add-attributes:hover {
     padding: 10px;
     background-color: #f9f9f9;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-top: 10px;
+    border-radius: 3px;
+     
 }
 
 .sub-form-container .sub-form {
@@ -161,22 +162,33 @@ button.add-attributes:hover {
 
 .sub-form-container .sub-form .row {
     flex-direction: column;
+    display: flex;
     margin-bottom: 10px;
     padding:10px;
 }
 
-button.add-sub-form-row{
+button.sub-row-add{
     background-color: #059e14;
     color: white;
     border: none;
     padding: 5px 8px;
     cursor: pointer;
     border-radius: 5px;
-    margin-top: 5px;
-    margin: 5px;
-    height: auto;
+    justify-content: center;
+    margin-top: 8px;
+    margin: 15px;
 }
 
+button.remove-sub-row{
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 5px;
+
+}
 
 
 @media (min-width: 600px) {
@@ -235,16 +247,5 @@ button.add-sub-form-row{
         margin-bottom: 10px;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
