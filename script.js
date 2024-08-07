@@ -18,31 +18,34 @@ function addParentRow() {
     childRow.innerHTML = `
         <td colspan="5">
             <table class="child-table">
-                <thead>
-                    <tr>
-                        <th>Child Item Description</th>
-                        <th>Quantity</th>
-                        <th>Unit Price</th>
-                        <th>Total</th>
-                        <th>Additional Field 1</th>
-                        <th>Additional Field 2</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input type="text" name="child_description" placeholder="Child Item Description"></td>
-                        <td><input type="number" name="child_quantity" placeholder="Quantity" class="quantity" oninput="calculateTotal(this)"></td>
-                        <td><input type="number" name="child_unit_price" placeholder="Unit Price" class="unit-price" oninput="calculateTotal(this)"></td>
-                        <td class="total">0.00</td>
-                        <td><input type="text" name="additional_field_1" placeholder="Additional Field 1"></td>
-                        <td><input type="text" name="additional_field_2" placeholder="Additional Field 2"></td>
-                        <td>
-                            <button type="button" onclick="deleteRow(this)">Delete</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                                <thead>
+                                    <tr>
+                                        <th>Taka ID</th>
+                                        <th>Shade</th>
+                                        <th>Order No.</th>
+                                        <th>Quantity</th>
+                                        <th>Rate</th>
+                                        <th>Remarks</th>
+                                        <th>Total</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="text" name="child_description" placeholder="Taka ID"></td>
+                                        <td><input type="text" name="additional_field_1" placeholder="Shade"></td>
+                                        <td><input type= "text" name= "order no" placeholder = "Order No."</td>
+                                        <td><input type="number" name="child_quantity" placeholder="Quantity" class="quantity" oninput="calculateTotal(this)"></td>
+                                        <td><input type="number" name="child_unit_price" placeholder="Unit Price" class="unit-price" oninput="calculateTotal(this)"></td>
+
+                                        <td><input type="text" name="additional_field_2" placeholder="Remarks"></td>
+                                        <td class="total">0.00</td>
+                                        <td>
+                                            <button type="button" onclick="deleteRow(this)">Delete</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
         </td>
     `;
 
