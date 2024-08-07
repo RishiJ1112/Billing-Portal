@@ -1,173 +1,116 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const addItemButton = document.getElementById('add-item');
-    const invoiceItems = document.getElementById('invoice-items');
-    const form = document.getElementById('invoice-form');
+function addParentRow() {
+    let tableBody = document.getElementById('invoice-body');
+    let parentRow = document.createElement('tr');
+    parentRow.className = 'parent-row';
+    parentRow.innerHTML = `
+        <td><input type="text" name="description" placeholder="Item Description"></td>
+        <td><input type="number" name="quantity" placeholder="Quantity" class="quantity" oninput="calculateTotal(this)"></td>
+        <td><input type="number" name="unit_price" placeholder="Unit Price" class="unit-price" oninput="calculateTotal(this)"></td>
+        <td class="total">0.00</td>
+        <td>
+            <button type="button" onclick="addChildRow(this)">Add Child</button>
+            <button type="button" onclick="deleteRow(this)">Delete</button>
+        </td>
+    `;
 
-    addItemButton.addEventListener('click', function () {
-        const rowCount = invoiceItems.querySelectorAll('tr').length;
-        const row = invoiceItems.insertRow();
+    let childRow = document.createElement('tr');
+    childRow.className = 'child-row';
+    childRow.innerHTML = `
+        <td colspan="5">
+            <table class="child-table">
+                <thead>
+                    <tr>
+                        <th>Child Item Description</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Total</th>
+                        <th>Additional Field 1</th>
+                        <th>Additional Field 2</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" name="child_description" placeholder="Child Item Description"></td>
+                        <td><input type="number" name="child_quantity" placeholder="Quantity" class="quantity" oninput="calculateTotal(this)"></td>
+                        <td><input type="number" name="child_unit_price" placeholder="Unit Price" class="unit-price" oninput="calculateTotal(this)"></td>
+                        <td class="total">0.00</td>
+                        <td><input type="text" name="additional_field_1" placeholder="Additional Field 1"></td>
+                        <td><input type="text" name="additional_field_2" placeholder="Additional Field 2"></td>
+                        <td>
+                            <button type="button" onclick="deleteRow(this)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+    `;
 
-        row.innerHTML = `
-            <td>${rowCount + 1}</td>
-            <td><input type="text" name="Product" placeholder="Product" required></td>
-            <td><input type="number" name="qty" min="0" step="1" placeholder="Quantity" required></td>
-            <td><input type="number" name="rate" min="0" step="0.01" placeholder="Rate" required></td>
-            <td><input type="number" name="amount" placeholder="Amount" readonly></td>
-            <td>
-                <button type="button" class="remove"><i class="fas fa-trash-alt"></i></button>
-                <button type="button" class="add-attributes"><i class="fas fa-plus"></i></button>
-            </td>
-        `;
+    tableBody.appendChild(parentRow);
+    tableBody.appendChild(childRow);
+}
 
+function addChildRow(button) {
+    let parentRow = button.parentElement.parentElement;
+    let childTable = parentRow.nextElementSibling.querySelector('.child-table tbody');
+    let childRow = document.createElement('tr');
+    childRow.innerHTML = `
+     <td><input type="text" name="child_description" placeholder="Taka ID"></td>
+     <td><input type="text" name="additional_field_1" placeholder="Shade"></td>
+     <td><input type= "text" name= "order no" placeholder = "Order No."</td>
+     <td><input type="number" name="child_quantity" placeholder="Quantity" class="quantity" oninput="calculateTotal(this)"></td>
+     <td><input type="number" name="child_unit_price" placeholder="Unit Price" class="unit-price" oninput="calculateTotal(this)"></td>
+     <td><input type="text" name="additional_field_2" placeholder="Remarks"></td>
+     <td class="total">0.00</td>
+     <td>
+         <button type="button" onclick="deleteRow(this)">Delete</button>
+     </td>
+    `;
 
-        const qtyInput = row.querySelector('[name="qty"]');
-        const rateInput = row.querySelector('[name="rate"]');
-        const amountInput = row.querySelector('[name="amount"]');
-    
-        qtyInput.addEventListener('input', function () {
-            calculateAmount(qtyInput, rateInput, amountInput);
-        });
-    
-        rateInput.addEventListener('input', function () {
-            calculateAmount(qtyInput, rateInput, amountInput);
-        });
-    
+    childTable.appendChild(childRow);
+}
 
-        row.querySelector('.remove').addEventListener('click', function () {
-            row.remove();
-            updateRowNumbers();
-            updateAmount();
-        });
+function deleteRow(button) {
+    let row = button.parentElement.parentElement;
+    let parent = row.parentElement.parentElement.parentElement.parentElement;
 
-        row.querySelector('.add-attributes').addEventListener('click', function () {
-            toggleSubForm(row);
-        });
-
-        updateRowNumbers();
-        updateAmount();
-    });
-
-    // To calculate the amount of the table row independently 
-    function calculateAmount(qtyInput, rateInput, amountInput) {
-        const qty = parseFloat(qtyInput.value);
-        const rate = parseFloat(rateInput.value);
-        const amount = qty * rate;
-        amountInput.value = amount.toFixed(2);
-        updateAmount();
+    if (row.classList.contains('parent-row') && row !== parent.querySelector('.parent-row:first-child')) {
+        row.nextElementSibling.remove();
+        row.remove();
+    } else if (row.classList.contains('child-row')) {
+        row.remove();
+    } else {
+        row.remove();
     }
 
-    // To update the amount when the data is inserted
-    function updateAmount() {
-        const rows = invoiceItems.querySelectorAll('tr:not(.sub-form-container)');
-        let total = 0;
+    updateGrandTotal();
+}
 
-        rows.forEach(row => {
-            const qty = row.querySelector('[name="qty"]').value;
-            const rate = row.querySelector('[name="rate"]').value;
-            const amountInput = row.querySelector('[name="amount"]');
-            const calculatedAmount = qty * rate;
-
-            amountInput.value = calculatedAmount.toFixed(2);
-            total += calculatedAmount;
-        });
-
-        const gst = total * 0.18;
-        const netAmt = total + gst;
-
-        document.getElementById('total').value = total.toFixed(2);
-        document.getElementById('gst').value = gst.toFixed(2);
-        document.getElementById('net_amt').value = netAmt.toFixed(2);
-    }
-
-    // To adjust the row numbers accordingly  
-    function updateRowNumbers() {
-        const rows = invoiceItems.querySelectorAll('tr:not(.sub-form-container)');
-        rows.forEach((row, index) => {
-            row.cells[0].textContent = index + 1;
-        });
-    }
-
-
-    // To open the sub-form in the row
-    function toggleSubForm(row) {
-        let subFormContainer = row.nextElementSibling;
-
-        if (!subFormContainer || !subFormContainer.classList.contains('sub-form-container')) {
-            subFormContainer = document.createElement('tr');
-            subFormContainer.classList.add('sub-form-container');
-            subFormContainer.innerHTML = `
-                        <div class="sub-form">
-                        <td>
-                        <div class="row">
-                            <label for="attribute1">Taka ID</label>
-                            <input type="text" name="attribute1" placeholder="Taka ID">
-                        </div>
-                        <div class="row">
-                            <label for="attribute2">Shade</label>
-                            <input type="text" name="attribute2" placeholder="Shade">
-                        </div>
-                        </td>
-
-                        <td>
-                        <div class="row">
-                            <label for="attribute3">Pattern</label>
-                            <input type="text" name="attribute3" placeholder="Pattern">
-                        </div>
-                        <div class="row">
-                            <label for="attribute4">Order No.</label>
-                            <input type="number" name="attribute4" placeholder="Order No.">
-                        </div>
-                        </td>
-
-                        <td>
-                        <div class="row">
-                            <label for="attribute5">Qty</label>
-                            <input type="number" name="attribute5" placeholder="Qty">
-                        </div>
-                        <div class="row">
-                            <label for="attribute6">Remarks</label>
-                            <input type="text" name="attribute6" placeholder="Remarks">
-                        </div>
-                        </td>
-
-                        <td>
-                        <button type="button" class="sub-row-add"><i class="fas fa-plus"></i> Add </button> 
-                        </td>
-
-                       <td>
-                       <button type="button" class="remove-sub-row"><i class="fas fa-trash-alt"></i></button>
-                       </td>
-                    </div>
-
-            `;
-            row.after(subFormContainer);
-        }
-
-        subFormContainer.style.display = subFormContainer.style.display === 'none' || subFormContainer.style.display === '' ? 'table-row' : 'none';
-    }
+function calculateTotal(element) {
+    let row = element.parentElement.parentElement;
+    let quantity = row.querySelector('.quantity').value;
+    let unitPrice = row.querySelector('.unit-price').value;
+    let total = row.querySelector('.total');
     
+    total.textContent = (quantity * unitPrice).toFixed(2);
+    updateGrandTotal();
+}
+
+function updateGrandTotal() {
+    let totals = document.querySelectorAll('.total');
+    let grandTotal = 0;
     
-
-    document.querySelectorAll('[name="qty"], [name="rate"]').forEach(input => {
-        input.addEventListener('input', updateAmount);
+    totals.forEach(function(total) {
+        grandTotal += parseFloat(total.textContent);
     });
+    
+    document.getElementById('grand-total').textContent = grandTotal.toFixed(2);
 
+    let gst = grandTotal * 0.10;
+    let sgst = grandTotal * 0.10;
+    let finalTotal = grandTotal + gst + sgst;
 
-    // To remove the rows of the table
-    document.querySelectorAll('.remove').forEach(button => {
-        button.addEventListener('click', function () {
-            const row = button.closest('tr');
-            row.remove();
-            updateRowNumbers();
-            updateAmount();
-        });
-    });
-
-    document.querySelectorAll('.add-attributes').forEach(button => {
-        button.addEventListener('click', function () {
-            const row = button.closest('tr');
-            toggleSubForm(row);
-        });
-    });
-});
-
+    document.getElementById('gst-amount').textContent = gst.toFixed(2);
+    document.getElementById('sgst-amount').textContent = sgst.toFixed(2);
+    document.getElementById('final-total').textContent = finalTotal.toFixed(2);
+}
