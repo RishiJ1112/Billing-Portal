@@ -2,17 +2,17 @@
 <html>
 <head>
     <title>Sales Entry System</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="test.css">
 </head>
 <body>
    <u><h1>BHARAT TEXTILES</h1></u> 
     <form id="invoice-form">
         <div class="invoice-details">
-            <label>Invoice Number: <input type="text" id="invoice-number" autofocus></label>
-            <label>Invoice Date: <input type="date" id="invoice-date"></label>
-            <label>Document Name: <input type="text" id="document-name"></label>
-            <label>Document Number: <input type="text" id="document-number"></label>
-            <label>Party Name: <input type="text" id="customer-name"></label>
+            <label> Voucher No.: <input type="text" id="voucher-no."  placeholder = "Voucher Number" autofocus></label>
+            <label> Voucher Date: <input type="date" id="vdate" ></label>
+            <label> Document Ref. No: <input type="text" id="document-ref-no" placeholder = "Document Reference Number"></label>
+            <label> Document Date: <input type="date" id="document-date" ></label>
+            <label> Party Name: <input type="text" id="party-name" placeholder = "Party Name"></label>
         </div>
         <div class="table-container">
             <table id="invoice-table">
@@ -29,7 +29,7 @@
                     <!-- Fixed Parent Row -->
                     <tr class="parent-row">
                         <td><input type="text" name="description" placeholder="Item Description"></td>
-                        <td><input type="number" name="quantity" placeholder="Quantity" class="quantity" oninput="calculateTotal(this)"></td>
+                        <td><input type="number" name="quantity" placeholder="Quantity" class="parent-quantity" readonly></td>
                         <td><input type="number" name="unit_price" placeholder="Unit Price" class="unit-price" oninput="calculateTotal(this)"></td>
                         <td class="total">0.00</td>
                         <td>
@@ -46,22 +46,18 @@
                                         <th>Shade</th>
                                         <th>Order No.</th>
                                         <th>Quantity</th>
-                                        <th>Rate</th>
                                         <th>Remarks</th>
-                                        <th>Total</th>
+                                
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td><input type="text" name="child_description" placeholder="Taka ID"></td>
-                                        <td><input type="text" name="additional_field_1" placeholder="Shade"></td>
-                                        <td><input type= "text" name= "order no" placeholder = "Order No."</td>
-                                        <td><input type="number" name="child_quantity" placeholder="Quantity" class="quantity" oninput="calculateTotal(this)"></td>
-                                        <td><input type="number" name="child_unit_price" placeholder="Unit Price" class="unit-price" oninput="calculateTotal(this)"></td>
-
+                                        <td><input type="number" name="additional_field_1" placeholder="Shade"></td>
+                                        <td><input type= "text" name= "order no" placeholder = "Order No."></td>
+                                        <td><input type="number" name="child_quantity" placeholder="Quantity" class="child-quantity" oninput="updateParentQuantity(this)"></td>
                                         <td><input type="text" name="additional_field_2" placeholder="Remarks"></td>
-                                        <td class="total">0.00</td>
                                         <td>
                                             <button type="button" onclick="deleteRow(this)">Delete</button>
                                         </td>
@@ -73,13 +69,14 @@
                 </tbody>
             </table>
         </div>
-        <button type="button" onclick="addParentRow()">Add Parent Item</button>
+        <button type="button" onclick="addParentRow()">Add Item</button>
         <button type="submit">Submit</button>
+        <!-- <button type ="submit">View History</button> -->
     </form>
     <h2>Total: <span id="grand-total">0.00</span></h2>
-    <h2>GST (10%): <span id="gst-amount">0.00</span></h2>
-    <h2>SGST (10%): <span id="sgst-amount">0.00</span></h2>
+    <h2>CGST (2.5%): <span id="gst-amount">0.00</span></h2>
+    <h2>SGST (2.5%): <span id="sgst-amount">0.00</span></h2>
     <h2>Final Total: <span id="final-total">0.00</span></h2>
-    <script src="script.js"></script>
+    <script src="test.js"></script>
 </body>
 </html>
