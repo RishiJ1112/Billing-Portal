@@ -1,10 +1,12 @@
+let historyData = []; 
+
 function addParentRow() {
     let tableBody = document.getElementById('invoice-body');
     let parentRow = document.createElement('tr');
     parentRow.className = 'parent-row';
     parentRow.innerHTML = `
         <td><input type="text" name="description" placeholder="Item Description"></td>
-        <td><input type="number" name="quantity" placeholder="Quantity" class="quantity" oninput="calculateTotal(this)"></td>
+        <td><input type="number" name="quantity" placeholder="Quantity" class="parent-quantity" readonly></td>
         <td><input type="number" name="unit_price" placeholder="Unit Price" class="unit-price" oninput="calculateTotal(this)"></td>
         <td class="total">0.00</td>
         <td>
@@ -18,34 +20,29 @@ function addParentRow() {
     childRow.innerHTML = `
         <td colspan="5">
             <table class="child-table">
-                                <thead>
-                                    <tr>
-                                        <th>Taka ID</th>
-                                        <th>Shade</th>
-                                        <th>Order No.</th>
-                                        <th>Quantity</th>
-                                        <th>Rate</th>
-                                        <th>Remarks</th>
-                                        <th>Total</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input type="text" name="child_description" placeholder="Taka ID"></td>
-                                        <td><input type="text" name="additional_field_1" placeholder="Shade"></td>
-                                        <td><input type= "text" name= "order no" placeholder = "Order No."</td>
-                                        <td><input type="number" name="child_quantity" placeholder="Quantity" class="quantity" oninput="calculateTotal(this)"></td>
-                                        <td><input type="number" name="child_unit_price" placeholder="Unit Price" class="unit-price" oninput="calculateTotal(this)"></td>
-
-                                        <td><input type="text" name="additional_field_2" placeholder="Remarks"></td>
-                                        <td class="total">0.00</td>
-                                        <td>
-                                            <button type="button" onclick="deleteRow(this)">Delete</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                <thead>
+                    <tr>
+                        <th>Taka ID</th>
+                        <th>Shade</th>
+                        <th>Order No.</th>
+                        <th>Quantity</th>
+                        <th>Remarks</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" name="child_description" placeholder="Taka ID"></td>
+                        <td><input type="text" name="additional_field_1" placeholder="Shade"></td>
+                        <td><input type="text" name="order_no" placeholder="Order No."></td>
+                        <td><input type="number" name="child-quantity" placeholder="Quantity" class="child-quantity" oninput="updateParentQuantity(this); calculateTotal(this)"></td>
+                        <td><input type="text" name="additional_field_2" placeholder="Remarks"></td>
+                        <td>
+                            <button type="button" onclick="deleteRow(this)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </td>
     `;
 
@@ -54,34 +51,36 @@ function addParentRow() {
 }
 
 function addChildRow(button) {
-    let parentRow = button.parentElement.parentElement;
+    let parentRow = button.closest('.parent-row');
     let childTable = parentRow.nextElementSibling.querySelector('.child-table tbody');
     let childRow = document.createElement('tr');
     childRow.innerHTML = `
-     <td><input type="text" name="child_description" placeholder="Taka ID"></td>
-     <td><input type="text" name="additional_field_1" placeholder="Shade"></td>
-     <td><input type= "text" name= "order no" placeholder = "Order No."</td>
-     <td><input type="number" name="child_quantity" placeholder="Quantity" class="quantity" oninput="calculateTotal(this)"></td>
-     <td><input type="number" name="child_unit_price" placeholder="Unit Price" class="unit-price" oninput="calculateTotal(this)"></td>
-     <td><input type="text" name="additional_field_2" placeholder="Remarks"></td>
-     <td class="total">0.00</td>
-     <td>
-         <button type="button" onclick="deleteRow(this)">Delete</button>
-     </td>
+        <td><input type="text" name="child_description" placeholder="Taka ID"></td>
+        <td><input type="text" name="additional_field_1" placeholder="Shade"></td>
+        <td><input type="text" name="order_no" placeholder="Order No."></td>
+        <td><input type="number" name="child-quantity" placeholder="Quantity" class="child-quantity" oninput="updateParentQuantity(this); calculateTotal(this)"></td>
+        <td><input type="text" name="additional_field_2" placeholder="Remarks"></td>
+        <td>
+            <button type="button" onclick="deleteRow(this)">Delete</button>
+        </td>
     `;
 
     childTable.appendChild(childRow);
+    updateParentQuantity(childRow.querySelector('.child-quantity'));
 }
 
 function deleteRow(button) {
-    let row = button.parentElement.parentElement;
-    let parent = row.parentElement.parentElement.parentElement.parentElement;
-
-    if (row.classList.contains('parent-row') && row !== parent.querySelector('.parent-row:first-child')) {
-        row.nextElementSibling.remove();
+    let row = button.closest('tr');
+    if (row.classList.contains('parent-row')) {
+        let nextRow = row.nextElementSibling;
+        if (nextRow && nextRow.classList.contains('child-row')) {
+            nextRow.remove();
+        }
         row.remove();
-    } else if (row.classList.contains('child-row')) {
+    } else if (row.closest('.child-row')) {
+        let parentRow = row.closest('.child-row').previousElementSibling;
         row.remove();
+        updateParentQuantity(parentRow.querySelector('.parent-quantity'));
     } else {
         row.remove();
     }
@@ -90,30 +89,51 @@ function deleteRow(button) {
 }
 
 function calculateTotal(element) {
-    let row = element.parentElement.parentElement;
-    let quantity = row.querySelector('.quantity').value;
-    let unitPrice = row.querySelector('.unit-price').value;
-    let total = row.querySelector('.total');
-    
-    total.textContent = (quantity * unitPrice).toFixed(2);
+    let row = element.closest('tr');
+    let quantityField = row.querySelector('.quantity') || row.querySelector('.parent-quantity');
+    let unitPriceField = row.querySelector('.unit-price');
+    let totalField = row.querySelector('.total');
+
+    let quantity = parseFloat(quantityField ? quantityField.value : 0) || 0;
+    let unitPrice = parseFloat(unitPriceField ? unitPriceField.value : 0) || 0;
+
+    if (totalField) {
+        totalField.textContent = (quantity * unitPrice).toFixed(2);
+    }
+
     updateGrandTotal();
+}
+
+function updateParentQuantity(element) {
+    let parentRow = element.closest('.child-row').previousElementSibling;
+    let childRows = element.closest('tbody').querySelectorAll('.child-quantity');
+    let parentQuantityField = parentRow.querySelector('.parent-quantity');
+    let totalQuantity = 0;
+
+    childRows.forEach(function(childQuantity) {
+        totalQuantity += parseFloat(childQuantity.value) || 0;
+    });
+
+    parentQuantityField.value = totalQuantity.toFixed(2);
+    calculateTotal(parentRow.querySelector('.unit-price'));
 }
 
 function updateGrandTotal() {
     let totals = document.querySelectorAll('.total');
     let grandTotal = 0;
-    
+
     totals.forEach(function(total) {
-        grandTotal += parseFloat(total.textContent);
+        grandTotal += parseFloat(total.textContent) || 0;
     });
-    
+
     document.getElementById('grand-total').textContent = grandTotal.toFixed(2);
 
-    let gst = grandTotal * 0.10;
-    let sgst = grandTotal * 0.10;
+    let gst = grandTotal * 0.025;
+    let sgst = grandTotal * 0.025;
     let finalTotal = grandTotal + gst + sgst;
 
     document.getElementById('gst-amount').textContent = gst.toFixed(2);
     document.getElementById('sgst-amount').textContent = sgst.toFixed(2);
     document.getElementById('final-total').textContent = finalTotal.toFixed(2);
 }
+
