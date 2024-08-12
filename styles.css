@@ -2,7 +2,7 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 20px;
-    background-color: #a5aeba;
+    background-color: #f0f2f5;
 }
 
 h1 {
@@ -15,10 +15,9 @@ h1 {
     flex-wrap: wrap;
     justify-content: space-between;
     margin-bottom: 20px;
-    background-color: #fbf3f3;
+    background-color: #fff;
     padding: 20px;
     border-radius: 8px;
-    border: 1px solid #0b0a0a;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -31,17 +30,16 @@ h1 {
 
 .invoice-details input {
     width: calc(100% - 20px);
-    padding: 10px;
-    border: 1px solid #131212;
-    border-radius: 4px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
 }
 
 .table-container {
     overflow-y: auto;
     max-height: 400px;
+    background-color: #fff;
     border-radius: 8px;
-    background-color: white;
-    border: 1px solid #0e0e0e;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -49,10 +47,12 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    margin-left: 8px;
+    margin-right: 8px;
 }
 
 table, th, td {
-    border: 1px solid #4a4444;
+    border: 1px solid #080808;
 }
 
 th, td {
@@ -66,7 +66,7 @@ button {
     background-color: #28a745;
     color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 20px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
@@ -78,11 +78,10 @@ button:hover {
 .child-table {
     width: 100%;
     margin-top: 10px;
-    background-color: #dad8d8;    ;
 }
 
 .child-table th, .child-table td {
-    border: 1px solid #312e2e;
+    border: 1px solid #0f0f0f;
     padding: 5px;
 }
 
@@ -90,3 +89,5 @@ h2 {
     text-align: center;
     color: #333;
 }
+
+
