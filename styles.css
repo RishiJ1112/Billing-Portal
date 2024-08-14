@@ -2,7 +2,7 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 20px;
-    background-color: #f0f2f5;
+    background-color: #f5d33e;
 }
 
 h1 {
@@ -15,9 +15,10 @@ h1 {
     flex-wrap: wrap;
     justify-content: space-between;
     margin-bottom: 20px;
-    background-color: #fff;
+    background-color: #FAE588;
     padding: 20px;
     border-radius: 8px;
+    border: 2px solid black;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -26,21 +27,23 @@ h1 {
     margin: 10px;
     color: #333;
     font-weight: bold;
+    
 }
 
 .invoice-details input {
     width: calc(100% - 20px);
     padding: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #120909;
     border-radius: 2px;
 }
 
 .table-container {
     overflow-y: auto;
     max-height: 400px;
-    background-color: #fff;
+    background-color: #FAE588;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 2px solid black;
+    box-shadow: 0 2px 4px rgba( 0, 0, 0, 0.1);
 }
 
 table {
@@ -49,6 +52,7 @@ table {
     margin-top: 20px;
     margin-left: 8px;
     margin-right: 8px;
+    
 }
 
 table, th, td {
@@ -63,21 +67,23 @@ th, td {
 button {
     margin: 10px 0;
     padding: 10px 20px;
-    background-color: #28a745;
-    color: #fff;
-    border: none;
+    background-color: #FDF8E1;
+    color: #101010;
+    border: 1px solid black;
     border-radius: 20px;
     cursor: pointer;
+    font-weight: bold;
     transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: #218838;
+    background-color: #d2cdba;
 }
 
 .child-table {
     width: 100%;
     margin-top: 10px;
+    background-color: #f7f0c4;
 }
 
 .child-table th, .child-table td {
@@ -87,7 +93,8 @@ button:hover {
 
 h2 {
     text-align: center;
-    color: #333;
+    color: #090909;
 }
+
 
 
