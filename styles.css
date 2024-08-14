@@ -2,12 +2,12 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 20px;
-    background-color: #f5d33e;
+    background-color: #0a0a0a;
 }
 
 h1 {
     text-align: center;
-    color: #333;
+    color: #f8f5f5;
 }
 
 .invoice-details {
@@ -15,7 +15,7 @@ h1 {
     flex-wrap: wrap;
     justify-content: space-between;
     margin-bottom: 20px;
-    background-color: #FAE588;
+    background-color: #e7e6df;
     padding: 20px;
     border-radius: 8px;
     border: 2px solid black;
@@ -40,7 +40,7 @@ h1 {
 .table-container {
     overflow-y: auto;
     max-height: 400px;
-    background-color: #FAE588;
+    background-color: #e7e6df;
     border-radius: 8px;
     border: 2px solid black;
     box-shadow: 0 2px 4px rgba( 0, 0, 0, 0.1);
@@ -67,7 +67,7 @@ th, td {
 button {
     margin: 10px 0;
     padding: 10px 20px;
-    background-color: #FDF8E1;
+    background-color: #f0efeb;
     color: #101010;
     border: 1px solid black;
     border-radius: 20px;
@@ -77,13 +77,13 @@ button {
 }
 
 button:hover {
-    background-color: #d2cdba;
+    background-color: #9b9a99;
 }
 
 .child-table {
     width: 100%;
     margin-top: 10px;
-    background-color: #f7f0c4;
+    background-color: #b6b5b1;
 }
 
 .child-table th, .child-table td {
@@ -91,9 +91,13 @@ button:hover {
     padding: 5px;
 }
 
+.child-table th{
+    background-color: #7c7a7a;
+}
+
 h2 {
     text-align: center;
-    color: #090909;
+    color: #f7f5f5;
 }
 
 
