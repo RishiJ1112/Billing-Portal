@@ -1,4 +1,3 @@
-let historyData = []; 
 
 function addParentRow() {
     let tableBody = document.getElementById('invoice-body');
@@ -33,10 +32,10 @@ function addParentRow() {
                 <tbody>
                     <tr>
                         <td><input type="text" name="child_description" placeholder="Taka ID"></td>
-                        <td><input type="text" name="additional_field_1" placeholder="Shade"></td>
+                        <td><input type="text" name="shade" placeholder="Shade"></td>
                         <td><input type="text" name="order_no" placeholder="Order No."></td>
                         <td><input type="number" name="child-quantity" placeholder="Quantity" class="child-quantity" oninput="updateParentQuantity(this); calculateTotal(this)"></td>
-                        <td><input type="text" name="additional_field_2" placeholder="Remarks"></td>
+                        <td><input type="text" name="remarks" placeholder="Remarks"></td>
                         <td>
                             <button type="button" onclick="deleteRow(this)">Delete</button>
                         </td>
@@ -56,10 +55,10 @@ function addChildRow(button) {
     let childRow = document.createElement('tr');
     childRow.innerHTML = `
         <td><input type="text" name="child_description" placeholder="Taka ID"></td>
-        <td><input type="text" name="additional_field_1" placeholder="Shade"></td>
+        <td><input type="text" name="shade" placeholder="Shade"></td>
         <td><input type="text" name="order_no" placeholder="Order No."></td>
         <td><input type="number" name="child-quantity" placeholder="Quantity" class="child-quantity" oninput="updateParentQuantity(this); calculateTotal(this)"></td>
-        <td><input type="text" name="additional_field_2" placeholder="Remarks"></td>
+        <td><input type="text" name="remarks" placeholder="Remarks"></td>
         <td>
             <button type="button" onclick="deleteRow(this)">Delete</button>
         </td>
@@ -69,24 +68,6 @@ function addChildRow(button) {
     updateParentQuantity(childRow.querySelector('.child-quantity'));
 }
 
-function deleteRow(button) {
-    let row = button.closest('tr');
-    if (row.classList.contains('parent-row')) {
-        let nextRow = row.nextElementSibling;
-        if (nextRow && nextRow.classList.contains('child-row')) {
-            nextRow.remove();
-        }
-        row.remove();
-    } else if (row.closest('.child-row')) {
-        let parentRow = row.closest('.child-row').previousElementSibling;
-        row.remove();
-        updateParentQuantity(parentRow.querySelector('.parent-quantity'));
-    } else {
-        row.remove();
-    }
-
-    updateGrandTotal();
-}
 
 function calculateTotal(element) {
     let row = element.closest('tr');
@@ -104,6 +85,30 @@ function calculateTotal(element) {
     updateGrandTotal();
 }
 
+
+function deleteRow(button) {
+    let row = button.closest('tr');
+    
+    if (row.classList.contains('parent-row')) {
+        let nextRow = row.nextElementSibling;
+        if (nextRow && nextRow.classList.contains('child-row')) {
+            nextRow.remove();
+        }
+        row.remove();
+    }  else if (row.closest('.child-row')) {
+        let parentRow = row.closest('.child-row').previousElementSibling;
+        let childRow = parentRow.nextElementSibling;
+        console.log("Parent row",parentRow)
+        row.remove();
+        updateParentQuantity(childRow.querySelector('.child-quantity'));
+    } else {
+        row.remove();
+    }
+
+    updateGrandTotal();
+}
+
+
 function updateParentQuantity(element) {
     let parentRow = element.closest('.child-row').previousElementSibling;
     let childRows = element.closest('tbody').querySelectorAll('.child-quantity');
@@ -117,6 +122,8 @@ function updateParentQuantity(element) {
     parentQuantityField.value = totalQuantity.toFixed(2);
     calculateTotal(parentRow.querySelector('.unit-price'));
 }
+
+
 
 function updateGrandTotal() {
     let totals = document.querySelectorAll('.total');
